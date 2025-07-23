@@ -1,4 +1,4 @@
-# ingestion/newsapi_client.py
+# ingestion/newsdata_client.py
 
 import os
 import requests
@@ -9,14 +9,14 @@ from dotenv import load_dotenv
 
 # Load API keys from .env
 load_dotenv()
-NEWSAPI_KEY = os.getenv("NEWSAPI_KEY")
+NEWSDATA_KEY = os.getenv("NEWSDATA_KEY")
 
-class NewsAPIClient:
+class NewsDataClient:
     def __init__(self, company_list_path: str = "data/company_list.yaml"):
-        if not NEWSAPI_KEY:
-            raise ValueError("NEWSAPI_KEY not found in environment variables")
-        self.api_key = NEWSAPI_KEY
-        self.base_url = "https://newsapi.org/v2/everything"
+        if not NEWSDATA_KEY:
+            raise ValueError("NEWSDATA_KEY not found in environment variables")
+        self.api_key = NEWSDATA_KEY
+        self.base_url = "https://newsdata.io/api/1/news"
         self.load_company_list(company_list_path)
 
     def load_company_list(self, path):
@@ -25,19 +25,19 @@ class NewsAPIClient:
             self.companies = data["companies"]
 
     def fetch_articles_for_company(self, company):
-        query = " OR ".join([f'"{alias}"' for alias in company["aliases"]])
+        query = " OR ".join([alias for alias in company["aliases"]])
         params = {
+            "apikey": self.api_key,
             "q": query,
-            "language": "en",  # Start with English
-            "sortBy": "publishedAt",
-            "pageSize": 50,
-            "apiKey": self.api_key
+            "language": "en",
+            "page": 1
         }
         response = requests.get(self.base_url, params=params)
         if response.status_code == 200:
-            return response.json()["articles"]
+            data = response.json()
+            return data.get("results", [])
         else:
-            print(f"[NewsAPI] Error fetching for {company['name']}: {response.text}")
+            print(f"[NewsData] Error fetching for {company['name']}: {response.text}")
             return []
 
     def save_articles(self, company_name, articles):
@@ -46,7 +46,7 @@ class NewsAPIClient:
         date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
         folder = "data/raw"
         os.makedirs(folder, exist_ok=True)
-        filename = f"{folder}/{company_name.replace(' ', '_')}_{date_str}_newsapi.json"
+        filename = f"{folder}/{company_name.replace(' ', '_')}_{date_str}_newsdata.json"
         with open(filename, "w") as f:
             json.dump(articles, f, indent=2)
-        print(f"[NewsAPI] Saved {len(articles)} articles for {company_name} to {filename}")
+        print(f"[NewsData] Saved {len(articles)} articles for {company_name} to {filename}")

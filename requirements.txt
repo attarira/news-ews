@@ -1,0 +1,3 @@
+requests==2.31.0          # For HTTP API calls
+PyYAML==6.0.1             # For reading company_list.yaml
+python-dotenv==1.0.1      # For loading API keys from .env
