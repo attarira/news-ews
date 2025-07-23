@@ -1,0 +1,63 @@
+companies:
+  - name: "Commercial International Bank"
+    ticker: "CIB"
+    aliases:
+      - "CIB Egypt"
+      - "Commercial International Bank Egypt"
+      - "CIB"
+      - "CIBEG.CA"
+    industry: "Banking"
+    keywords:
+      - "credit"
+      - "loans"
+      - "financial services"
+
+  - name: "Orascom Construction"
+    ticker: "ORAS"
+    aliases:
+      - "Orascom"
+      - "Orascom Construction Industries"
+      - "OCI"
+      - "ORAS.CA"
+    industry: "Construction"
+    keywords:
+      - "infrastructure"
+      - "engineering"
+      - "projects"
+
+  - name: "EFG Hermes"
+    ticker: "HRHO"
+    aliases:
+      - "Hermes"
+      - "EFG"
+      - "EFG Hermes Holding"
+      - "HRHO.CA"
+    industry: "Investment Banking"
+    keywords:
+      - "investments"
+      - "asset management"
+      - "securities"
+
+  - name: "Telecom Egypt"
+    ticker: "ETEL"
+    aliases:
+      - "TE"
+      - "Telecom Egypt SAE"
+      - "ETEL.CA"
+    industry: "Telecommunications"
+    keywords:
+      - "mobile"
+      - "internet"
+      - "fiber optic"
+
+  - name: "Elsewedy Electric"
+    ticker: "SWDY"
+    aliases:
+      - "Elsewedy"
+      - "Elsewedy Electric Co."
+      - "SWDY.CA"
+    industry: "Energy"
+    keywords:
+      - "cables"
+      - "transformers"
+      - "renewable energy"
